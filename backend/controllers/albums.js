@@ -86,12 +86,12 @@ exports.likeAlbum = (req, res) => {
 
 exports.increasePlaysInAlbum = (req, res, next) => {
     try {
-        Albums.findByIdAndUpdate({ _id: req.params.albumId }, { $inc: { plays: 1 } }, (err, playlist) => {
-            if (!err && playlist) {
-                logger.info("Plays updated for playlist:" + playlist._id);
-
+        logger.info("Playsfor album:" +req.params);
+        Albums.findByIdAndUpdate({ _id: req.params.albumId }, { $inc: { plays: 1 } }, (err, album) => {
+            if (err) {
+                logger.error("Fialed to update plays in album:" + err);
             }
-            logger.error("Fialed to update plays in playlist:" + err);
+            logger.info("Plays updated for album:" + album._id);
             next();
         });
     } catch (error) {

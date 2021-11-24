@@ -28,8 +28,8 @@ export const getAlbums = () => {
     }).catch((err) => console.log(err));
 }
 
-export const getAlbum=(id)=>{
-    return fetch(`${API}album/${id}`, {
+export const getAlbum=(id,play)=>{
+    return fetch(`${API}album/${id}/${play}`, {
         method: "GET",
     }).then((response) => {
         return response.json();

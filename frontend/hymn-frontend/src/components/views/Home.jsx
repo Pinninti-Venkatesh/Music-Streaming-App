@@ -33,9 +33,9 @@ function Home() {
   }, []);
   return (
     <div className="pt-12 min-h-screen">
-      <CardList listName="Most Liked Songs" type="song" cardList={homeList.songs}></CardList>
-      <CardList listName="Most Liked Albums" type="album" cardList={homeList.albums}></CardList>
-      <CardList listName="Most Liked PlayLists" type="playlist" cardList={homeList.playlists}></CardList>
+      <CardList listName="Most Played Songs" type="song" cardList={homeList.songs}></CardList>
+      <CardList listName="Most Played Albums" type="album" cardList={homeList.albums}></CardList>
+      {/* <CardList listName="Most Played PlayLists" type="playlist" cardList={homeList.playlists}></CardList> */}
     </div>
   );
 }

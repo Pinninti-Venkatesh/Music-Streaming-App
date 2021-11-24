@@ -167,10 +167,10 @@ exports.likeSong = (req, res) => {
 let increasePlaysInSong = (id) => {
     try {
         Songs.findByIdAndUpdate({ _id: id }, { $inc: { plays: 1 } }, (err, song) => {
-            if (!err && song) {
-                logger.info("Plays updated for song:" + id);
+            if (err) {
+                logger.error("Fialed to update plays in playlist:" + err);
             }
-            logger.error("Fialed to update plays in playlist:" + err);
+            logger.info("Plays updated for song:" + id);
         });
     } catch (error) {
         logger.error("exception in increasePlaysInPlayList:" + error);

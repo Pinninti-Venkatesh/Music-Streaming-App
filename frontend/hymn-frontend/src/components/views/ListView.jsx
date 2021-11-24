@@ -20,7 +20,7 @@ const ListView = ({ match, location }) => {
   });
   useEffect(() => {
     if (match.params.type == "album") {
-      getAlbum(match.params.listId).then((res) => {
+      getAlbum(match.params.listId,'').then((res) => {
         res = res.response.map(function (album) {
           album.imageUrl = `${API}song/photo/${album._id}`;
           return album;
@@ -37,7 +37,7 @@ const ListView = ({ match, location }) => {
   const playSong = (event) => {
     event.preventDefault();
     if (listState.type == "album") {
-      getAlbum(listState.id).then((res) => {
+      getAlbum(listState.id,'play').then((res) => {
         res = res.response;
         updatePlayerStatus({
           ...playerStatus,
@@ -51,7 +51,7 @@ const ListView = ({ match, location }) => {
   };
   const addToQueue = (next) => {
     if (listState.type == "album") {
-      getAlbum(listState.id).then((res) => {
+      getAlbum(listState.id,'').then((res) => {
         res = res.response;
         var songs = localStorage.getItem("song-queue");
         songs = songs != null ? JSON.parse(songs) : [];

@@ -31,7 +31,7 @@ class Player extends Component {
         console.log('checking if player component is updated')
         console.log('current song id',this.props.playerStatus.id);
         console.log('prev song id',prevProps.playerStatus.id);
-        if (this.props.playerStatus.id != prevProps.playerStatus.id) {
+        if (this.props.playerStatus.id != prevProps.playerStatus.id&&this.props.songCurrent==this.props.songCurrent) {
             this.loadComponent();
         }
         else if(this.props.playerStatus.isPlaying!=prevProps.playerStatus.isPlaying){
@@ -54,7 +54,7 @@ class Player extends Component {
             this.audioElement.current.addEventListener('ended', (event) => {
                 this.autoPlayNext();
             });
-            this.audioElement.current.addEventListener("durationchange", () => {
+            this.audioElement.current.addEventListener("canplay", () => {
                 this.setSongDuraionEnd()
             });
             this.audioElement.current.addEventListener("timeupdate", () => {
@@ -82,7 +82,6 @@ class Player extends Component {
         this.setState({ "isLiked": !this.state.isLiked });
     }
     setSongDuraionEnd = () => {
-
         let audioDuration = this.audioElement.current.duration;
         // const audioSeeker=document.getElementById("audio-seeker");
         this.audioSeeker.current.max = audioDuration;
@@ -188,8 +187,8 @@ class Player extends Component {
     songDurationChange = (event) => {
         event.stopPropagation();
         event.preventDefault();
-        this.setState({ songCurrent: event.target.value });
-
+        // this.setState({ songCurrent: event.target.value });
+        this.audioSeeker.current.value=event.target.value;
         this.audioElement.current.currentTime = event.target.value;
     }
     stopEventPropogation = (event) => {
@@ -201,7 +200,7 @@ class Player extends Component {
             <div className="w-screen fixed bottom-0 h-100 bg-gray-900 z-50" onClick={() => {
                 this.props.hideQueue();
             }}>
-                <input type="range" min="0" max="100" value={this.state.songCurrent} ref={this.audioSeeker} onChange={this.songDurationChange} onClick={this.stopEventPropogation} className="absolute w-screen h-1 bg-gray-700" id="audio-seeker"></input>
+                <input type="range" min="0" max="100" value="0" ref={this.audioSeeker} onChange={this.songDurationChange} onClick={this.stopEventPropogation} className="absolute w-screen h-1 bg-gray-700" id="audio-seeker"></input>
                 <audio controls id="audio-player" ref={this.audioElement} className="hidden top-0">
                     <source src={this.state.songUrl} type="audio/mpeg" />
                     Your browser does not support the audio element.
